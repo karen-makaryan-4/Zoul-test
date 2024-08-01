@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "TEAM_ID.com.yourcompany.yourmediapp",
+        "appID": "6502774439.com.zoul.app",
         "paths": ["/audio/*"]
       }
     ]
