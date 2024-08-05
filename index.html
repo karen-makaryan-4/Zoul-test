@@ -15,30 +15,20 @@
           const playStoreURL = 'market://details?id=com.zoul.app';
 
           const start = new Date().getTime();
-          let timeout;
-
-          if (navigator.userAgent.match(/Android/i)) {
-            timeout = setTimeout(() => {
-              window.location.href = playStoreURL;
-            }, 1000);
-          } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-            timeout = setTimeout(() => {
-              window.location.href = appStoreURL;
-            }, 1000);
-          }
+          setTimeout(() => {
+            if (new Date().getTime() - start < 2000) {
+              window.location.href = /android/i.test(navigator.userAgent)
+                ? playStoreURL
+                : appStoreURL;
+            }
+          }, 1500);
 
           window.location.href = appScheme;
-
-          window.addEventListener('blur', () => {
-            clearTimeout(timeout);
-          });
-        } else {
-          window.location.href = 'https://www.zoul.app';
         }
       }
     </script>
   </head>
   <body onload="redirectToApp()">
-    <h1>Deep Link Test 2</h1>
+    <h1>Deep Link Test</h1>
   </body>
 </html>
