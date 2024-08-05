@@ -10,26 +10,30 @@
           'audioId'
         );
         if (audioId) {
-          const appScheme = window.location.href;
+          const appScheme = `zoul://?audioId=${audioId}`;
           const appStoreURL = 'https://apps.apple.com/app/id6502774439';
           const playStoreURL =
             'https://play.google.com/store/apps/details?id=com.zoul.app';
 
           const start = new Date().getTime();
+          const timeoutDuration = 1500;
+
+          window.location.href = appScheme;
+
           setTimeout(() => {
-            if (new Date().getTime() - start < 2000) {
+            if (new Date().getTime() - start < timeoutDuration) {
               window.location.href = /android/i.test(navigator.userAgent)
                 ? playStoreURL
                 : appStoreURL;
             }
-          }, 1500);
-
-          window.location.href = appScheme;
+          }, timeoutDuration);
+        } else {
+          window.location.href = 'https://www.zoul.app';
         }
       }
     </script>
   </head>
   <body onload="redirectToApp()">
-    Test Zoul 1
+    <p>Redirecting...</p>
   </body>
 </html>
