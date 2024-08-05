@@ -12,32 +12,25 @@
           return;
         }
 
-        const appUrl = `zoul://?audioId=${audioId}`;
-        const storeUrl = /iPhone|iPad|iPod/.test(navigator.userAgent)
-          ? 'https://apps.apple.com/app/id6502774439'
-          : 'https://play.google.com/store/apps/details?id=com.zoul.app';
+        var appUrl = `zoul://?audioId=${audioId}`;
+        var storeUrl = '';
+        var userAgent = navigator.userAgent;
 
-        // Create an invisible iframe to try opening the app
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
+        if (/iPhone|iPad|iPod/.test(userAgent)) {
+          storeUrl = 'https://apps.apple.com/app/id6502774439';
+        } else if (/Android/.test(userAgent)) {
+          storeUrl =
+            'https://play.google.com/store/apps/details?id=com.zoul.app';
+        }
+
+        var iframe = document.createElement('iframe');
+        // iframe.style.display = 'none';
         iframe.src = appUrl;
         document.body.appendChild(iframe);
 
-        // Check visibility change to determine if app was opened
-        let visibilityChanged = false;
-        document.addEventListener('visibilitychange', function () {
-          if (document.visibilityState === 'visible') {
-            visibilityChanged = true;
-            window.location.href = storeUrl; // Redirect to app store if app isn't opened
-          }
-        });
-
-        // Fallback if visibility does not change
-        setTimeout(() => {
-          if (!visibilityChanged) {
-            window.location.href = storeUrl;
-          }
-        }, 1000); // Adjust timing as needed
+        // setTimeout(function () {
+        //   window.location.href = storeUrl;
+        // }, 1500);
       }
 
       document.addEventListener('DOMContentLoaded', redirect);
