@@ -23,23 +23,17 @@
             'https://play.google.com/store/apps/details?id=com.zoul.app';
         }
 
-        var iframe = document.createElement('iframe');
-        // iframe.style.display = 'none';
-        iframe.src = appUrl;
-        document.body.appendChild(iframe);
+        window.location.href = appUrl;
 
-        // setTimeout(function () {
-        //   window.location.href = storeUrl;
-        // }, 1500);
+        setTimeout(function () {
+          window.location.href = storeUrl;
+        }, 1500);
       }
 
       document.addEventListener('DOMContentLoaded', redirect);
     </script>
   </head>
   <body>
-    <p>
-      If you are not redirected automatically,
-      <a href="#" onclick="redirect()">click here</a>.
-    </p>
+    <h1>H mek</h1>
   </body>
 </html>
