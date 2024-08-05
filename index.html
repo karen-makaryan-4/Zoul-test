@@ -4,7 +4,15 @@
     <title>Redirecting...</title>
     <script type="text/javascript">
       function redirect() {
-        var appUrl = 'myapp://?audioId=test123';
+        const audioId = new URLSearchParams(window.location.search).get(
+          'audioId'
+        );
+
+        if (!audioId) {
+          return;
+        }
+
+        var appUrl = `zoul://?audioId=${audioId}`;
         var storeUrl = '';
         var userAgent = navigator.userAgent;
 
