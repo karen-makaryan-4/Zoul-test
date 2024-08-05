@@ -4,7 +4,20 @@
     "details": [
       {
         "appID": "2E9AL854AX.com.zoul.app",
-        "paths": ["/audio/*"]
+        "components": [
+          {
+            "/": "/Zoul-test",
+            "query": {
+              "audioId": "?*"
+            }
+          },
+          {
+            "/": "/",
+            "query": {
+              "audioId": "?*"
+            }
+          }
+        ]
       }
     ]
   }
