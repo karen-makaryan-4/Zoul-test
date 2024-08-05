@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deep Link Redirect</title>
-    <script>
-      function redirectToApp() {
-        const audioId = new URLSearchParams(window.location.search).get(
-          'audioId'
-        );
-        if (audioId) {
-          const appScheme = `zoul://?audioId=${audioId}`;
-          const appStoreURL = 'https://apps.apple.com/app/id6502774439';
-          const playStoreURL =
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      function redirect() {
+        var appUrl = 'myapp://?audioId=test123';
+        var storeUrl = '';
+        var userAgent = navigator.userAgent;
+
+        if (/iPhone|iPad|iPod/.test(userAgent)) {
+          storeUrl = 'https://apps.apple.com/app/id6502774439';
+        } else if (/Android/.test(userAgent)) {
+          storeUrl =
             'https://play.google.com/store/apps/details?id=com.zoul.app';
-
-          const start = new Date().getTime();
-          const timeoutDuration = 1500;
-
-          window.location.href = appScheme;
-
-          setTimeout(() => {
-            if (new Date().getTime() - start < timeoutDuration) {
-              window.location.href = /android/i.test(navigator.userAgent)
-                ? playStoreURL
-                : appStoreURL;
-            }
-          }, timeoutDuration);
-        } else {
-          window.location.href = 'https://www.zoul.app';
         }
+
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = appUrl;
+        document.body.appendChild(iframe);
+
+        setTimeout(function () {
+          window.location.href = storeUrl;
+        }, 1500);
       }
+
+      document.addEventListener('DOMContentLoaded', redirect);
     </script>
   </head>
-  <body onload="redirectToApp()">
-    <p>Redirecting...</p>
+  <body>
+    <p>
+      If you are not redirected automatically,
+      <a href="#" onclick="redirect()">click here</a>.
+    </p>
   </body>
 </html>
