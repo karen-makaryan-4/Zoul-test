@@ -3,36 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zoul Meditation & Sleep</title>
-  </head>
-  <body>
-    <!-- SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C -->
-    <title>Open Zoul App</title>
+    <title>Deep Link Redirect</title>
     <script>
-      function openApp() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var audioId = urlParams.get('audioId');
+      function redirectToApp() {
+        const audioId = new URLSearchParams(window.location.search).get(
+          'audioId'
+        );
+        if (audioId) {
+          const appScheme = `zoul://?audioId=${audioId}`;
+          const appStoreURL = 'https://apps.apple.com/app/id6502774439';
+          const playStoreURL =
+            'https://play.google.com/store/apps/details?id=com.zoul.app';
 
-        if (!audioId) {
-          return;
+          const start = new Date().getTime();
+          setTimeout(() => {
+            if (new Date().getTime() - start < 2000) {
+              window.location.href = /android/i.test(navigator.userAgent)
+                ? playStoreURL
+                : appStoreURL;
+            }
+          }, 1500);
+
+          window.location.href = appScheme;
         }
-
-        var customScheme = 'zoul://?audioId=' + audioId;
-        var iosAppStoreUrl = 'https://apps.apple.com/app/id6502774439';
-        var androidPlayStoreUrl =
-          'https://play.google.com/store/apps/details?id=com.zoul.app';
-
-        var isAndroid = /Android/i.test(navigator.userAgent);
-        var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-        var storeUrl = isAndroid ? androidPlayStoreUrl : iosAppStoreUrl;
-
-        window.location.href = customScheme;
-
-        setTimeout(function () {
-          window.location.href = storeUrl;
-        }, 1000);
       }
     </script>
-  </body>
+  </head>
+  <body onload="redirectToApp()"></body>
 </html>
