@@ -12,13 +12,18 @@
           return;
         }
 
-        var appUrl = `zoul://?audioId=${audioId}`;
-        var storeUrl = '';
-        var userAgent = navigator.userAgent;
+        var appUrl = iOS
+          ? `zoul://?audioId=${audioId}`
+          : `intent://zoul?audioId=${audioId}#Intent;scheme=zoul;package=com.zoul.app;end`;
 
-        if (/iPhone|iPad|iPod/.test(userAgent)) {
+        const userAgent = navigator.userAgent;
+        const iOS = /iPhone|iPad|iPod/.test(userAgent);
+        const android = /Android/.test(userAgent);
+        const storeUrl = '';
+
+        if (iOS) {
           storeUrl = 'https://apps.apple.com/app/id6502774439';
-        } else if (/Android/.test(userAgent)) {
+        } else if (android) {
           storeUrl =
             'https://play.google.com/store/apps/details?id=com.zoul.app';
         }
