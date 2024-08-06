@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "2E9AL854AX.com.zoul.app",
-        "paths": [ "?audioId=*" ]
+        "paths": [ "*" ]
       }
     ]
   }
